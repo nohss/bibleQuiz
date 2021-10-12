@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Referrer" content="origin">
+	<meta name="referrer" content="always">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta name="robots" content="noindex">
+	<meta name="title" content="순천 그대들교회 성구암송대회 퀴즈">
+	<meta name="description" content="순천 그대들교회 성구암송대회 퀴즈">
+	<meta name="keywords" content="순천 그대들교회 성구암송대회 퀴즈">
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="순천 그대들교회 성구암송대회 퀴즈">
+	<meta property="og:description" content="순천 그대들교회 성구암송대회 퀴즈">
+	<meta property="og:url" content="#">
+	<meta property="og:image" content="#">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>순천 그대들교회 성구암송대회 퀴즈</title>
+	<script type="text/javascript" src="/jquery-1.8.3.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="css/contents.css" />
+	<link rel="stylesheet" type="text/css" href="css/font.css" />
+</head>
+<body>
+<style>
+	/* .quiz-container{
+			position:relative;
+			background-color:#f8f6f0;
+			font-size:17px;
+			color:#333;
+			height:200px;
+			margin-top:40px;
+			text-align:center;
+			font-weight:300;
+		}
+		*/
+		.slide{
+	/*      position:absolute;  */
+	/*      opacity:0; */
+			display:none;
+		}
+		
+	.active-slide{
+			opacity:1;
+			z-index:2;
+		}
+	</style>
+<div id="fullPage">
+	<!-- header start -->
+		<header>
+	    <h1><a href=""><span class="hide">대한민국 평생학습박람회 모바일모의고사</span></a></h1>
+		</header>
+		<!-- header end -->
+	  <!-- contents start -->
+	  <main id="quiz"> 
+
+		<hr class="lineType01" />
+		<div class="buttonBox">
+			<a href="javascript:void(0);" class="buttonQna" onclick="showPreviousSlide();" id="previous"  ><span>이전</span></a>
+			<a href="javascript:void(0);" class="buttonQna" onclick="showNextSlide();" id="next"  ><span>다음</span></a>
+			<a href="javascript:void(0);" class="buttonQna" onclick="showResult();" id="submit"  ><span>결과확인</span></a>
+		</div>
+	</main>
+		<!-- contents end -->
+</div>
+<script src="/quiz.json" type="text/javascript"></script>
+<script type="text/javascript">
+	
+	var quizDisplay = document.getElementById('quiz');
+	var submitBtn = document.getElementById('submit');
+	var previousBtn = document.getElementById('previous');
+	var nextBtn = document.getElementById('next');
+	var currentSlide = 0;
+	var resultDisplay = document.getElementById('result');
+	var slides;
+	var quizJson = data;
+	quizJson.sort(function(a, b){
+		return Math.floor(Math.random() * (1 - (-1) + 1)) + -1; 
+	});
+	function showQuizList(){
+		var output = []; 
+		var etcBox;
+		quizJson.forEach(
+			function(currentQuestion, index){
+					var answers = [];
+					var example =[];
+					var etc = [];
+					for(item in currentQuestion.answers){
+						example.push('<li>'+item + ')' + currentQuestion.answers[item] +'</li>');
+						if(currentQuestion.queIdx == '4'){
+							answers.push('<li><input type="hidden" name="quiz4" id="quiz4" value="" /><input type="checkbox" name="quiz_4" id="'+currentQuestion.queIdx+"_"+item+'" value="'+item+'"><label for="'+currentQuestion.queIdx+"_"+item+'"><span></span>'+item  +'</label></li>');
+						}else if(currentQuestion.queIdx == '10'){
+							answers.push('<li><input type="hidden" name="quiz10" id="quiz10" value="" /><input type="checkbox" name="quiz_10" id="'+currentQuestion.queIdx+"_"+item+'" value="'+item+'"><label for="'+currentQuestion.queIdx+"_"+item+'"><span></span>'+item  +'</label></li>');
+						}else{
+							answers.push('<li><input type="radio" name="quiz'+currentQuestion.queIdx+'" id="'+currentQuestion.queIdx+"_"+item+'" value="'+item+'" /><label for="'+currentQuestion.queIdx+"_"+item+'"><span></span>'+item  +'</label></li>');
+						}
+					}
+					if(currentQuestion.etc){
+						for(etcItem in currentQuestion.etc){
+							etc.push('<li>'+etcItem + ')' + currentQuestion.etc[etcItem]+'</li>');
+						}
+						etcBox = '<div class="questionBoxIn"><ul>'+etc.join('')+'</ul></div>';
+					}else{
+						etcBox = "";
+					}
+// 					output.push('<div><div class="questionBox" ><p>'+ (index+1) + '.' + currentQuestion.question+"</p><ul>"+example.join('') +'</ul></div><div class="answer" id="answer'+index+'">'+answers.join('&nbsp;&nbsp;&nbsp;&nbsp;')+'</div></div>');
+					output.push('<div class="slide"><div class="questionBox" ><p>'+ (index+1) + '.' + currentQuestion.question+'</p>'+etcBox+'<ul>'+example.join('') +'</ul></div><div class="answerBox" id="answer'+index+'"><ul>'+answers.join('&nbsp;&nbsp;&nbsp;&nbsp;')+'</ul></div></div>' );
+			}
+		);
+// 		quizDisplay.innerHTML = output.join('');
+		$("#quiz").prepend(output);
+	}
+
+	function showResult(){
+        var answerDisplays = quizDisplay.querySelectorAll('.answerBox');  
+        var numCorrect = 0; 
+
+          quizJson.forEach( 
+        		  function(currentQuestion, index){
+       			  if(currentQuestion.queIdx == '4'){
+                  	   var checkAns = "";
+                  		$("input:checkbox[name=quiz_4]:checked").each(function(index){
+                  			if(index != 0){
+                  				checkAns += ',';
+                  			}
+                  			checkAns += $(this).val();
+                  		})
+                  		$("#quiz4").val(checkAns);
+            	  }else if(currentQuestion.queIdx == '10'){
+                  	   var checkAns = "";
+                  		$("input:checkbox[name=quiz_10]:checked").each(function(index){
+                  			if(index != 0){
+                  				checkAns += ',';
+                  			}
+                  			checkAns += $(this).val();
+                  		})
+                  		$("#quiz10").val(checkAns);
+            	  }
+                  var answerDisplay = answerDisplays[index]; 
+                  var selector = "input[name=quiz"+currentQuestion.queIdx+"]:checked";  
+                  var userAnswer;
+               	  if (currentQuestion.queIdx != '4' && currentQuestion.queIdx != '10' ){
+               		userAnswer = (answerDisplay.querySelector(selector) || {}).value;  
+               	  }else{
+               		userAnswer = $("#quiz"+currentQuestion.queIdx).val();
+               	  }
+
+                   if(userAnswer === currentQuestion.correct){    
+                           numCorrect++;
+//                            answerDisplays[index].style.color = 'lightgreen';
+                   }else{
+//                            answerDisplays[index].style.color = 'red';
+                   }
+                   
+                 
+        		  }
+        	);
+	        if($("#answer"+currentSlide+ " input").is(":checked")){
+	        	$("#quizResult").val(numCorrect);
+				 $("#mode").val("writeProc");
+				 $("#fview").submit();
+	  		}else{
+	  			alert("정답을 선택해주세요.");
+	  		}    
+             
+	}
+	
+	function showSlide(n){
+	     slides[currentSlide].classList.remove('active-slide');
+	     slides[currentSlide].classList.add('slide');
+	     slides[n].classList.remove("slide");
+		 slides[n].classList.add('active-slide'); 
+		 currentSlide = n;
+		   if(currentSlide === 0){
+		       previousBtn.style.display = 'none';
+		   }else{
+		       previousBtn.style.display = 'inline-block';
+		   }
+		   if(currentSlide === slides.length-1){
+		       nextBtn.style.display = 'none';
+			   submitBtn.style.display = 'inline-block';
+		   }else{
+		       nextBtn.style.display = 'inline-block';
+			   submitBtn.style.display = 'none';
+	               if(document.getElementById('retry')){
+	                       document.getElementById('retry').style.display = 'none';
+	                 }
+	          
+		   }
+	}
+
+	function showNextSlide(){ 
+		if($("#answer"+currentSlide+ " input").is(":checked")){
+			showSlide(currentSlide+1); 
+		}else{
+			alert("정답을 선택해주세요.");
+		}
+	}
+	function showPreviousSlide(){ showSlide(currentSlide-1); }
+	
+	showQuizList();
+	var slides = document.querySelectorAll('.slide');
+	showSlide(currentSlide);
+</script>
+
+</body>
+</html>
