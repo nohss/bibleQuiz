@@ -1,0 +1,120 @@
+@charset "utf-8";
+
+html { font-size: 20px;}
+body { font-size: 1rem;}
+
+@media all and (max-width:768px){
+
+    html { font-size: 18px;}
+    body { font-size: 1rem;}
+
+}
+
+@media all and (max-width:480px){
+
+    html { font-size: 16px;}
+    body { font-size: 1rem;}
+
+}
+
+body { background: #070d29; }
+
+#fullPage { position: relative; margin: 0 auto; width: 100%; max-width: 51.2rem; height: 100vh; overflow-x: hidden; background: url(../images/bg.png) no-repeat center;  background-size: cover; }
+
+header { padding: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; }
+header h1 { font-family: 'Cafe24Ohsquare'; font-size: 1.8rem; color: #ffffff; }
+header h1 > span { font-family: 'Cafe24Ohsquare'; font-size: 1.8rem; color: #23b8bc; }
+header > div {  }
+header > div a { display: block; width: 9.55rem; height: 3.7rem; background: url(../images/logo.svg) no-repeat center; }
+
+@media all and (max-width:550px){
+  header > div { display: none; }
+}
+.mainHeader { position: absolute; right: 1rem; top: 1rem; width: 10.4rem; height: 6.25rem; /*background: url(../images/logoDate.svg) no-repeat center; */}
+
+main { margin: .5rem 1rem 1rem; }
+.intro { display: flex; align-items: center; height: calc(100vh - 9.75rem); margin-top: 6.25rem; flex-wrap: wrap; }
+.intro > div { width: 100%; text-align: center; }
+
+hr.lineType01 { border: 1px dashed rgba(255, 255, 255, 1); }
+
+.mainTitle > p { font-family: 'Cafe24Ohsquare'; font-size: 2.4rem; color: #ffffff; word-break: keep-all; }
+.mainTitle > p > strong { display: block; padding: 1.5rem 0 1rem; font-family: 'Cafe24Ohsquare'; font-size: 3rem; color: #ffffff; }
+
+.subTitle{ padding: .95rem; text-align: center; background-color: #57dfb1;
+    background-image: linear-gradient(to left, #019b9a , #2bbbb6 , #57dfb1); border-radius: 30px; }
+.subTitle > p { font-size: 1.2rem; font-weight: 500; color: #070d29; line-height: 1.4rem; word-break: keep-all; }
+
+/* 개인정보동의 */
+.agreeBox { margin-top: 1rem; padding: 1.5rem; height: 12.5rem; overflow-y: scroll; background: #ffffff; border-top: 3px solid #019b9a; border-radius: 30px; }
+.agreeBox .content_num { counter-reset: num;}
+.agreeBox .content_num > li { margin-bottom: 1rem;}
+.agreeBox .content_num > li  { }
+.agreeBox .content_num > li:before { counter-increment: num;  content:"0" counter(num); display: block; font-size: .6rem; color: #23b8bc; font-weight: 700; }
+.agreeBox .content_num > li h2 { margin-bottom: .25rem; font-size:1rem; font-weight: 500; line-height: 1.4rem; }
+.agreeBox .content_num > li p { margin-bottom: .225rem; padding-left: 1rem; font-size: .8rem; color: #767676; text-indent: -.5rem; line-height: 1rem; }
+
+.formBox { margin: 0 0 1.5rem; }
+.formBox > li {  }
+.formBox > li .phoneNumStyle { flex-basis: 100%; }
+.formBox input[type="text"] { padding: .8rem 1rem; width: 100%; font-size: 18px; color: #ffffff; box-sizing: border-box; }
+.formBox label { padding: 1rem 0 .5rem; width: 100%; font-size: .9rem; color: #ffffff; display: block; }
+.formBox label span { position: relative; }
+.formBox label.typeBlock { display: block; }
+.formBox input::placeholder { color: #838383; }
+.formBox > ul > li > div > div { display: flex; align-items: center; }
+.formBox > ul > li > div > div span { font-size: 1rem; flex: 0 0 1.5rem; text-align: center; }
+
+input[type="checkbox"] { position: absolute; left: -9999px; }
+input[type="checkbox"] + label { position: relative; color: #ffffff; }
+input[type="checkbox"] + label span::before { content: ""; display: inline-block; position: relative; top: 3px; margin: 0 4px 0 0; width: 1rem; height: 1rem; border-radius: 50%; border: 1px solid #fff; transition: all 0.5s 0.3s; }
+input[type="checkbox"]:checked + label span::before { background: #019b9a; border-color: #019b9a; }
+input[type="checkbox"] + label span::after { content: ""; position: absolute; left: 0; top: -2px; background: url(../images/checkedArw.png) no-repeat center; background-size: 0; width: 22px; height: 22px; }
+input[type="checkbox"]:checked + label span::after { background-size: 12px auto; }
+
+input:focus {border-radius: 0;}
+
+/* 질문 */
+.questionBox { padding: 1rem; border-radius: 1rem; border-top: 3px solid #01969a; background: #ffffff; line-height: 1.3rem; }
+.questionBox > p { padding-left: 1rem; font-size: 1rem; font-weight: 500; text-indent: -1rem; }
+.questionBox > ul { margin: 1rem 1rem 0 1rem; }
+.questionBox > li { font-size: .9rem; color: #505050; }
+
+.answerBox { position: relative; margin: 1rem 0; }
+.answerBox > ul { display: flex; flex-direction: row; justify-content: center; }
+.answerBox > ul > li { margin-right: 1rem; }
+.answerBox > ul > li:last-child { margin-right: none; }
+.answerBox > ul > li label { font-size: .9rem; color: #ffffff; }
+
+.answerBox input[type="radio"] { display:none; }
+.answerBox input[type="radio"] + label { color:#ffffff; }
+.answerBox input[type="radio"] + label span { display: inline-block; width: 1rem; height: 1rem; margin:-.1rem .5rem 0 0; vertical-align: middle; border-radius: 50%; border: 1px solid #fff; }
+.answerBox input[type="radio"]:checked + label span { border-color: #019b9a; background: #019b9a url(../images/checkedArw.png) no-repeat center; }
+
+/* 점수확인 */
+.scoreBox { display: flex; margin-top: 1rem; padding: 1.5rem; height: 9rem; background: #ffffff url(../images/score.png) no-repeat 62% 75%; border-top: 3px solid #019b9a; border-radius: 30px; justify-content: center; align-items: center; }
+.scoreBox > p { font-family: 'Cafe24Ohsquare'; font-size: 3.6rem; font-style: oblique; color: #018378; text-shadow: 4px 4px 0 rgb(0 0 0 / 15%); }
+
+.snsBox { margin: 1rem 0; }
+.snsBox > ul { display: flex; justify-content: center; }
+.snsBox > ul > li { margin-right: 1rem; width: 3.5rem; height: 3.5rem; border-radius: 50%; }
+.snsBox > ul > li:nth-child(1) { background: #ffda00 url(../images/sns01.png) no-repeat center; }
+.snsBox > ul > li:nth-child(2) { background: #3b5a9a url(../images/sns02.png) no-repeat center; }
+.snsBox > ul > li:nth-child(3) { margin-right: 0; background: #2aa8e0 url(../images/sns03.png) no-repeat center; }
+
+/* 버튼공통 */
+.buttonBox { text-align: center; }
+.buttonBox > a {margin:0 1rem 0 0; box-shadow: 0 0 30px 30px rgba(0, 0, 0, .2);}
+.buttonBox > a:last-child {margin:0;}
+.buttonMain,
+.buttonQna { min-width:12rem; display: inline-block; padding:.7rem 1.25rem; height: 3rem; background-color: #57dfb1; background-image: linear-gradient(to left, #019b9a , #2bbbb6 , #57dfb1); transition: all 0.3s ease;  }
+.buttonMain { border-radius:1.625rem; border-bottom-right-radius: 0; font-size:1.1rem; font-weight: 700; color: #070d29; }
+.buttonQna { border-radius:1.625rem; font-size:1.1rem; font-weight: 700; color: #070d29; background-color: #57dfb1; }
+.buttonMain > span,
+.buttonQna > span { position: relative; }
+.buttonMain > span:after { display: block; position: absolute; bottom: -.4rem; right: -.7rem; width: 5.4rem; height: .55rem; content: ''; background: url(../images/buttonArw.png) right bottom no-repeat; transition: all 400ms ease-in-out; }
+.buttonQna > span:after { display: block; position: absolute; left: 50%; bottom: -.4rem; transform: translateX(-50%); width: 5.9rem; height: .55rem; content: ''; background: url(../images/buttonArw.png) right bottom no-repeat; transition: all 400ms ease-in-out; }
+.buttonMain:hover,
+.buttonQna:hover,
+.buttonMain:active,
+.buttonQna:active { background-color: #019b9a; background-image: linear-gradient(to right, #019b9a , #2bbbb6 , #57dfb1); }
