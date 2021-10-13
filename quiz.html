@@ -153,8 +153,6 @@
                		userAnswer = $("#quiz"+currentQuestion.queIdx).val();
                	  }*/
 					 userAnswer = (answerDisplay.querySelector(selector) || {}).value;
-console.log(userAnswer);
-console.log(currentQuestion.correct);
                    if(userAnswer === currentQuestion.correct){    
                            numCorrect++;
 //                            answerDisplays[index].style.color = 'lightgreen';
@@ -166,7 +164,6 @@ console.log(currentQuestion.correct);
         		  }
         	);
 	        if($("#answer"+currentSlide+ " input").is(":checked")){
-				console.log(numCorrect);
 				location.href="view.html?numCorrect=" + numCorrect;
 	  		}else{
 	  			alert("정답을 선택해주세요.");
